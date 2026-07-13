@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-theme="everforest">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install — the orchard manual</title>
+<link rel="icon" href="orchard.png">
+<link rel="stylesheet" href="manual.css">
+<body>
+<a class="skip" href="#chapter">Skip to the chapter</a>
+
+<header class="top">
+  <a class="mark" href="welcome.html">
+    <img src="orchard.png" alt="" width="22" height="22">
+    <span>orchard</span>
+  </a>
+  <form class="find" role="search" onsubmit="return false">
+    <input id="find" type="search" placeholder="Search the manual" autocomplete="off"
+           aria-label="Search the manual">
+    <kbd class="hint">/</kbd>
+  </form>
+  <button id="theme" class="theme" type="button" aria-live="polite"></button>
+</header>
+
+<div class="shell">
+  <nav class="contents" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><a href="welcome.html">Welcome</a></li>
+<li><a href="install.html" aria-current="page">Install</a></li>
+<li><a href="hotkeys.html">Hotkeys</a></li>
+<li><a href="themes.html">Themes</a></li>
+<li><a href="the-bar.html">The bar</a></li>
+<li><a href="notifications.html">Notifications</a></li>
+<li><a href="wallpapers.html">Wallpapers</a></li>
+<li><a href="sleep-and-locking.html">Sleep and locking</a></li>
+<li><a href="trackpad-and-keyboard.html">Trackpad and keyboard</a></li>
+<li><a href="writing.html">Writing</a></li>
+    </ol>
+  </nav>
+
+  <main id="chapter">
+    <h1>Install</h1>
+    <h2>On a Dell XPS 14</h2>
+<p>Flash an <a href="https://archlinux.org/download/">Arch ISO</a> to a USB drive, then boot the
+BIOS with <span class="chord"><kbd>F2</kbd></span>, turn off secure boot, and put the USB drive first in the boot order.</p>
+<pre><code>iwctl --passphrase &quot;PASS&quot; station wlan0 connect &quot;SSID&quot;
+pacman -Sy --noconfirm git
+git clone https://github.com/pachun/orchard /tmp/orchard
+/tmp/orchard/install-arch/dell-xps-14
+</code></pre>
+<p>It reboots itself. Sign in, then:</p>
+<pre><code>nmcli device wifi connect &quot;SSID&quot; password &quot;PASS&quot;
+~/code/orchard/install desktop
+~/code/orchard/connect
+</code></pre>
+<h2>On an M1 or M2 Mac</h2>
+<pre><code>curl https://asahi-alarm.org/installer-bootstrap.sh | sh
+</code></pre>
+<p>Reboot into Arch, then the same three steps: connect, clone, install.</p>
+<pre><code>nmcli device wifi connect &quot;SSID&quot; password &quot;PASS&quot;
+pacman -Sy --noconfirm git
+git clone https://github.com/pachun/orchard /tmp/orchard
+/tmp/orchard/install-arch/asahi
+</code></pre>
+<h2>Why the wifi command changes</h2>
+<p>On the Arch installer you use <code>iwctl</code>; on the installed system you use <code>nmcli</code>.
+That is not an inconsistency. They are clients for two different daemons — the
+ISO runs <code>iwd</code>, the installed system runs NetworkManager — and you cannot use
+<code>iwctl</code> on a machine that isn't running <code>iwd</code>. There is no way around it, because
+installing <code>iwd</code> would need the network you are trying to bring up.</p>
+<h2>What <code>connect</code> does</h2>
+<p><code>~/code/orchard/connect</code> is the part that can't be automated away: signing into
+Google Calendar, GitHub, iCloud files, and Tailscale. It asks; you answer.</p>
+  </main>
+</div>
+
+<div id="results" class="results" hidden>
+  <ul id="hits"></ul>
+  <p id="nothing" class="nothing" hidden></p>
+</div>
+
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

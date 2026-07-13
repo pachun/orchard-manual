@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="everforest">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notifications — the orchard manual</title>
+<link rel="icon" href="orchard.png">
+<link rel="stylesheet" href="manual.css">
+<body>
+<a class="skip" href="#chapter">Skip to the chapter</a>
+
+<header class="top">
+  <a class="mark" href="welcome.html">
+    <img src="orchard.png" alt="" width="22" height="22">
+    <span>orchard</span>
+  </a>
+  <form class="find" role="search" onsubmit="return false">
+    <input id="find" type="search" placeholder="Search the manual" autocomplete="off"
+           aria-label="Search the manual">
+    <kbd class="hint">/</kbd>
+  </form>
+  <button id="theme" class="theme" type="button" aria-live="polite"></button>
+</header>
+
+<div class="shell">
+  <nav class="contents" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><a href="welcome.html">Welcome</a></li>
+<li><a href="install.html">Install</a></li>
+<li><a href="hotkeys.html">Hotkeys</a></li>
+<li><a href="themes.html">Themes</a></li>
+<li><a href="the-bar.html">The bar</a></li>
+<li><a href="notifications.html" aria-current="page">Notifications</a></li>
+<li><a href="wallpapers.html">Wallpapers</a></li>
+<li><a href="sleep-and-locking.html">Sleep and locking</a></li>
+<li><a href="trackpad-and-keyboard.html">Trackpad and keyboard</a></li>
+<li><a href="writing.html">Writing</a></li>
+    </ol>
+  </nav>
+
+  <main id="chapter">
+    <h1>Notifications</h1>
+    <p>Notifications don't get a toast. They take the clock's place at the top of the
+screen — the clock fades out, the message fades in, and after five seconds they
+swap back.</p>
+<pre><code>Mon Jul 13  4:12 PM
+        ↓
+BlueBubbles — Nicholas Pachulski — Hey bud
+        ↓
+Mon Jul 13  4:12 PM
+</code></pre>
+<h2>Clicking one</h2>
+<p>Click the message and it opens the app that sent it — the same thing <span class="chord"><kbd>Cmd</kbd><kbd>I</kbd></span> does
+for BlueBubbles, but resolved from the notification rather than hard-coded, so it
+works for any app.</p>
+<p>If the app offers a <em>default action</em>, that gets invoked instead and the app decides
+where to take you. Most don't. BlueBubbles, for instance, offers "Mark Read" and
+two reactions and no default, which is why clicking a message opens the app and not
+the thread — the thread simply isn't in the notification.</p>
+<h2>Screenshots know where they are</h2>
+<p>Take a screenshot and the notification says <strong>Click to show it in Files</strong>. Clicking
+opens a new Files window with the shot already selected in it.</p>
+<p>Any script can do this. Name a file in the notification and it becomes clickable:</p>
+<pre><code>notify-send &quot;Screenshot&quot; &quot;Click to show it in Files&quot; \
+    -h &quot;string:x-orchard-reveal:$file&quot;
+</code></pre>
+<p>It carries a <em>path</em>, not a command, on purpose — a notification hint holding a shell
+command would let anything on the session bus hand you code and wait for you to
+click it. A path can only ever open a file manager.</p>
+<h2>Why the app name sometimes isn't shown</h2>
+<p>A notification reads <code>app — title — message</code>, but only when a real app sent it.
+Scripts announce themselves through <code>notify-send</code>, whose app name is, unhelpfully,
+<code>notify-send</code>. Real applications identify themselves with a <code>desktop-entry</code> hint;
+<code>notify-send</code> has none. So that hint, not the name, decides whether the name is
+worth showing.</p>
+  </main>
+</div>
+
+<div id="results" class="results" hidden>
+  <ul id="hits"></ul>
+  <p id="nothing" class="nothing" hidden></p>
+</div>
+
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>

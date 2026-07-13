@@ -1,0 +1,467 @@
+#!/usr/bin/env python3
+"""Turn chapters/*.md into a manual in site/.
+
+No framework, no server, no build step beyond this file. Run ./build and open
+site/index.html — it works off the filesystem as happily as off a web server,
+which is the whole point: a manual you can't read without infrastructure is a
+manual you won't read.
+
+The look is not chosen so much as inherited. The manual wears orchard's own
+themes: dark is everforest, light is rose-pine-dawn, and both palettes are
+lifted straight from the theme files in the repo next door. The toggle isn't a
+generic sun and moon — it names the theme you're in, because on the desktop
+those are real things you can switch to.
+"""
+import json
+import re
+import shutil
+from pathlib import Path
+
+import markdown
+
+HERE = Path(__file__).parent
+CHAPTERS = HERE / "chapters"
+SITE = HERE / "site"
+
+# Straight out of ~/code/orchard/configuration/desktop/themes/config/orchard-themes/.
+THEMES = {
+    "everforest": {
+        "bg": "#272e33", "raised": "#2e383c", "line": "#3d484d",
+        "fg": "#d3c6aa", "muted": "#859289", "accent": "#a7c080", "quiet": "#83c092",
+    },
+    "rose-pine-dawn": {
+        "bg": "#faf4ed", "raised": "#fffaf3", "line": "#dfdad9",
+        "fg": "#575279", "muted": "#9893a5", "accent": "#907aa9", "quiet": "#286983",
+    },
+}
+
+# A <code> span that is really a key you press, not a word you read.
+KEYS = r"Cmd|Ctrl|Shift|Option|Fn|Return|Escape|Esc|Tab|Delete|Space|F\d{1,2}|Left|Right|Up|Down"
+CHORD = re.compile(rf"<code>((?:{KEYS}|[A-Za-z0-9,\[\]`])(?:\+(?:{KEYS}|[A-Za-z0-9,\[\]`]))+)</code>")
+LONE_KEY = re.compile(rf"<code>({KEYS})</code>")
+
+
+def as_keycaps(html):
+    """Render key chords as keys. The manual is for a keyboard-driven desktop;
+    a hotkey should look like the thing your hands do, not like a filename."""
+    def caps(match):
+        keys = "".join(f"<kbd>{k}</kbd>" for k in match.group(1).split("+"))
+        return f'<span class="chord">{keys}</span>'
+    html = CHORD.sub(caps, html)
+    return LONE_KEY.sub(lambda m: f'<span class="chord"><kbd>{m.group(1)}</kbd></span>', html)
+
+
+def read_chapters():
+    chapters = []
+    for path in sorted(CHAPTERS.glob("*.md")):
+        raw = path.read_text()
+        title = raw.splitlines()[0].lstrip("# ").strip()
+        body = "\n".join(raw.splitlines()[1:]).strip()
+        chapters.append({
+            "slug": re.sub(r"^\d+-", "", path.stem),
+            "title": title,
+            "markdown": body,
+        })
+    return chapters
+
+
+def render(chapters):
+    converter = markdown.Markdown(extensions=["tables", "fenced_code", "attr_list"])
+    for chapter in chapters:
+        converter.reset()
+        chapter["html"] = as_keycaps(converter.convert(chapter["markdown"]))
+        # what search matches on: the prose, minus the markup
+        chapter["text"] = re.sub(r"<[^>]+>", " ", chapter["html"])
+        chapter["text"] = re.sub(r"\s+", " ", chapter["text"]).strip()
+    return chapters
+
+
+def contents(chapters, here):
+    links = []
+    for chapter in chapters:
+        current = ' aria-current="page"' if chapter["slug"] == here else ""
+        links.append(
+            f'<li><a href="{chapter["slug"]}.html"{current}>{chapter["title"]}</a></li>'
+        )
+    return "\n".join(links)
+
+
+def page(chapter, chapters):
+    return TEMPLATE.format(
+        title=chapter["title"],
+        contents=contents(chapters, chapter["slug"]),
+        body=chapter["html"],
+    )
+
+
+TEMPLATE = """<!doctype html>
+<html lang="en" data-theme="everforest">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} — the orchard manual</title>
+<link rel="icon" href="orchard.png">
+<link rel="stylesheet" href="manual.css">
+<body>
+<a class="skip" href="#chapter">Skip to the chapter</a>
+
+<header class="top">
+  <a class="mark" href="welcome.html">
+    <img src="orchard.png" alt="" width="22" height="22">
+    <span>orchard</span>
+  </a>
+  <form class="find" role="search" onsubmit="return false">
+    <input id="find" type="search" placeholder="Search the manual" autocomplete="off"
+           aria-label="Search the manual">
+    <kbd class="hint">/</kbd>
+  </form>
+  <button id="theme" class="theme" type="button" aria-live="polite"></button>
+</header>
+
+<div class="shell">
+  <nav class="contents" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      {contents}
+    </ol>
+  </nav>
+
+  <main id="chapter">
+    <h1>{title}</h1>
+    {body}
+  </main>
+</div>
+
+<div id="results" class="results" hidden>
+  <ul id="hits"></ul>
+  <p id="nothing" class="nothing" hidden></p>
+</div>
+
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>
+"""
+
+
+def stylesheet():
+    def variables(theme, colours):
+        body = "\n".join(f"  --{name}: {value};" for name, value in colours.items())
+        return f'[data-theme="{theme}"] {{\n{body}\n}}'
+
+    themes = "\n\n".join(variables(name, colours) for name, colours in THEMES.items())
+    return CSS.replace("/*THEMES*/", themes)
+
+
+CSS = """
+@font-face { font-family: Quattro; src: url(fonts/quattro-regular.woff2) format("woff2");
+             font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: Quattro; src: url(fonts/quattro-bold.woff2) format("woff2");
+             font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: Quattro; src: url(fonts/quattro-italic.woff2) format("woff2");
+             font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: WriterMono; src: url(fonts/mono-regular.woff2) format("woff2");
+             font-weight: 400; font-display: swap; }
+@font-face { font-family: WriterMono; src: url(fonts/mono-bold.woff2) format("woff2");
+             font-weight: 700; font-display: swap; }
+
+/* The manual wears orchard's own themes. These are the real palettes, lifted from
+   the theme folders in the repo — not a light/dark pair invented for a website. */
+/*THEMES*/
+
+:root { --reading: 66ch; }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  /* Quattro is duospaced: proportional enough to read for an hour, monospaced
+     enough to still belong to a terminal. That tension is the whole product. */
+  font-family: Quattro, ui-monospace, monospace;
+  font-size: 16.5px;
+  line-height: 1.66;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--raised); color: var(--fg); padding: 10px 16px; border-radius: 10px;
+}
+.skip:focus { left: 16px; top: 16px; z-index: 10; }
+
+/* ── the strip across the top ─────────────────────────────────────────── */
+.top {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; gap: 20px;
+  padding: 14px 24px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.mark {
+  display: flex; align-items: center; gap: 9px;
+  color: var(--fg); text-decoration: none; font-weight: 700;
+  letter-spacing: -0.01em; flex: none;
+}
+.mark img { display: block; }
+
+.find { position: relative; flex: 1; max-width: 420px; }
+.find input {
+  width: 100%; padding: 8px 34px 8px 13px;
+  background: var(--raised); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 10px;
+  font: inherit; font-size: 14.5px;
+}
+.find input::placeholder { color: var(--muted); }
+.find input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.find .hint {
+  position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
+  pointer-events: none; color: var(--muted);
+}
+.find input:focus + .hint { opacity: 0; }
+
+.theme {
+  margin-left: auto; flex: none;
+  padding: 7px 14px;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 10px;
+  font: inherit; font-size: 13.5px; cursor: pointer;
+}
+.theme:hover { color: var(--fg); border-color: var(--muted); }
+.theme:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ── contents and chapter ─────────────────────────────────────────────── */
+.shell {
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr);
+  gap: 48px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 44px 24px 120px;
+}
+
+.contents { position: sticky; top: 86px; align-self: start; }
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted);
+}
+.contents ol { list-style: none; margin: 0; padding: 0; }
+.contents li { margin: 0; }
+.contents a {
+  display: block; padding: 5px 12px; margin-left: -12px;
+  color: var(--muted); text-decoration: none; font-size: 14.5px;
+  border-radius: 8px;
+}
+.contents a:hover { color: var(--fg); background: var(--raised); }
+.contents a[aria-current] { color: var(--accent); font-weight: 700; }
+.contents a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+main { max-width: var(--reading); }
+main h1 {
+  margin: 0 0 28px;
+  font-size: 34px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em;
+}
+main h2 {
+  margin: 46px 0 14px;
+  font-size: 21px; line-height: 1.3; letter-spacing: -0.01em;
+}
+main h3 { margin: 32px 0 10px; font-size: 17px; }
+main p, main li { color: var(--fg); }
+main a { color: var(--quiet); text-underline-offset: 3px; }
+main ul, main ol { padding-left: 22px; }
+main li { margin: 6px 0; }
+main hr { border: 0; border-top: 1px solid var(--line); margin: 44px 0; }
+
+blockquote {
+  margin: 24px 0; padding: 2px 0 2px 18px;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+}
+
+/* ── the keys ─────────────────────────────────────────────────────────── */
+/* The signature. This is a manual for a desktop you drive with your hands on
+   the keyboard, so a hotkey is drawn as the key, not set as a filename. */
+.chord { display: inline-flex; gap: 3px; vertical-align: baseline; white-space: nowrap; }
+kbd {
+  display: inline-block;
+  min-width: 1.7em; padding: 1px 7px;
+  background: var(--raised);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  font-family: WriterMono, ui-monospace, monospace;
+  font-size: 12.5px; line-height: 1.5;
+  text-align: center;
+}
+
+code {
+  padding: 1px 6px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: WriterMono, ui-monospace, monospace;
+  font-size: 13.5px;
+}
+pre {
+  margin: 22px 0; padding: 16px 18px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+pre code { padding: 0; background: none; border: 0; font-size: 13.5px; }
+
+table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 15px; }
+th, td { text-align: left; padding: 9px 14px 9px 0; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+tbody tr:last-child td { border-bottom: 0; }
+
+/* ── search ───────────────────────────────────────────────────────────── */
+.results {
+  position: fixed; inset: 62px 0 0;
+  background: var(--bg);
+  z-index: 4;
+  overflow-y: auto;
+  padding: 32px 24px 80px;
+}
+.results ul { list-style: none; max-width: 720px; margin: 0 auto; padding: 0; }
+.results li { margin: 0 0 10px; }
+.results a {
+  display: block; padding: 14px 18px;
+  background: var(--raised);
+  border: 1px solid var(--line); border-radius: 10px;
+  color: var(--fg); text-decoration: none;
+}
+.results a:hover, .results a:focus-visible {
+  border-color: var(--accent); outline: none;
+}
+.results .where { display: block; color: var(--accent); font-size: 12.5px; margin-bottom: 4px; }
+.results .line { color: var(--muted); font-size: 14px; }
+.results mark { background: none; color: var(--fg); font-weight: 700; }
+.nothing { max-width: 720px; margin: 0 auto; color: var(--muted); }
+
+@media (max-width: 800px) {
+  .shell { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; }
+  .contents { position: static; }
+  .contents ol { display: flex; flex-wrap: wrap; gap: 4px; }
+  .contents a { padding: 5px 10px; margin: 0; background: var(--raised); }
+  .top { gap: 12px; padding: 12px 16px; }
+  .mark span { display: none; }
+}
+"""
+
+
+JS = """
+// The manual is keyboard-first, like the desktop it documents. `/` puts you in
+// the search box from anywhere; Escape gets you out.
+const find = document.getElementById("find");
+const results = document.getElementById("results");
+const hits = document.getElementById("hits");
+const nothing = document.getElementById("nothing");
+
+addEventListener("keydown", (event) => {
+  if (event.key === "/" && document.activeElement !== find) {
+    event.preventDefault();
+    find.focus();
+    find.select();
+  }
+  if (event.key === "Escape") {
+    find.value = "";
+    show(false);
+    find.blur();
+  }
+});
+
+function show(open) {
+  results.hidden = !open;
+  document.body.style.overflow = open ? "hidden" : "";
+}
+
+// A line of the chapter with the term still in it, so you can see why it matched.
+function excerpt(text, term) {
+  const at = text.toLowerCase().indexOf(term);
+  const from = Math.max(0, at - 60);
+  const slice = text.slice(from, at + term.length + 100);
+  const safe = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  return (from ? "…" : "")
+    + safe(slice.slice(0, at - from))
+    + "<mark>" + safe(slice.slice(at - from, at - from + term.length)) + "</mark>"
+    + safe(slice.slice(at - from + term.length)) + "…";
+}
+
+find.addEventListener("input", () => {
+  const term = find.value.trim().toLowerCase();
+  if (term.length < 2) return show(false);
+
+  const found = CHAPTERS
+    .map((c) => ({ chapter: c, at: c.text.toLowerCase().indexOf(term) }))
+    .filter((r) => r.at > -1 || r.chapter.title.toLowerCase().includes(term));
+
+  hits.innerHTML = found.map(({ chapter, at }) => `
+    <li><a href="${chapter.slug}.html">
+      <span class="where">${chapter.title}</span>
+      <span class="line">${at > -1 ? excerpt(chapter.text, term) : "This chapter"}</span>
+    </a></li>`).join("");
+
+  nothing.hidden = found.length > 0;
+  nothing.textContent = found.length ? "" : `Nothing in the manual mentions "${find.value.trim()}".`;
+  show(true);
+});
+
+// The toggle names the theme rather than drawing a sun, because these are real
+// themes you can actually be running on the desktop.
+const THEMES = ["everforest", "rose-pine-dawn"];
+const button = document.getElementById("theme");
+const root = document.documentElement;
+
+function wear(theme) {
+  root.dataset.theme = theme;
+  localStorage.setItem("orchard-manual-theme", theme);
+  button.textContent = theme;
+}
+
+button.addEventListener("click", () => {
+  wear(THEMES[(THEMES.indexOf(root.dataset.theme) + 1) % THEMES.length]);
+});
+
+const remembered = localStorage.getItem("orchard-manual-theme");
+const prefersLight = matchMedia("(prefers-color-scheme: light)").matches;
+wear(remembered || (prefersLight ? "rose-pine-dawn" : "everforest"));
+"""
+
+
+def main():
+    chapters = render(read_chapters())
+    if not chapters:
+        raise SystemExit("build: no chapters in chapters/ — nothing to make")
+
+    if SITE.exists():
+        shutil.rmtree(SITE)
+    SITE.mkdir()
+
+    for chapter in chapters:
+        (SITE / f"{chapter['slug']}.html").write_text(page(chapter, chapters))
+
+    (SITE / "index.html").write_text(page(chapters[0], chapters))
+    (SITE / "manual.css").write_text(stylesheet())
+    (SITE / "manual.js").write_text(JS)
+    (SITE / "search.js").write_text(
+        "const CHAPTERS = "
+        + json.dumps([{k: c[k] for k in ("slug", "title", "text")} for c in chapters])
+        + ";"
+    )
+    shutil.copytree(HERE / "assets" / "fonts", SITE / "fonts")
+    shutil.copy(HERE / "assets" / "orchard.png", SITE / "orchard.png")
+
+    print(f"  {len(chapters)} chapters -> {SITE}/")
+    for chapter in chapters:
+        print(f"    {chapter['slug']}.html  {chapter['title']}")
+
+
+if __name__ == "__main__":
+    main()

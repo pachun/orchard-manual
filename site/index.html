@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="everforest">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome — the orchard manual</title>
+<link rel="icon" href="orchard.png">
+<link rel="stylesheet" href="manual.css">
+<body>
+<a class="skip" href="#chapter">Skip to the chapter</a>
+
+<header class="top">
+  <a class="mark" href="welcome.html">
+    <img src="orchard.png" alt="" width="22" height="22">
+    <span>orchard</span>
+  </a>
+  <form class="find" role="search" onsubmit="return false">
+    <input id="find" type="search" placeholder="Search the manual" autocomplete="off"
+           aria-label="Search the manual">
+    <kbd class="hint">/</kbd>
+  </form>
+  <button id="theme" class="theme" type="button" aria-live="polite"></button>
+</header>
+
+<div class="shell">
+  <nav class="contents" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><a href="welcome.html" aria-current="page">Welcome</a></li>
+<li><a href="install.html">Install</a></li>
+<li><a href="hotkeys.html">Hotkeys</a></li>
+<li><a href="themes.html">Themes</a></li>
+<li><a href="the-bar.html">The bar</a></li>
+<li><a href="notifications.html">Notifications</a></li>
+<li><a href="wallpapers.html">Wallpapers</a></li>
+<li><a href="sleep-and-locking.html">Sleep and locking</a></li>
+<li><a href="trackpad-and-keyboard.html">Trackpad and keyboard</a></li>
+<li><a href="writing.html">Writing</a></li>
+    </ol>
+  </nav>
+
+  <main id="chapter">
+    <h1>Welcome</h1>
+    <p>Orchard is an Arch Linux desktop that behaves like a Mac.</p>
+<p>Not a theme that looks like one — a desktop where <span class="chord"><kbd>Cmd</kbd><kbd>C</kbd></span> copies, <span class="chord"><kbd>Cmd</kbd><kbd>Q</kbd></span> quits,
+<span class="chord"><kbd>Cmd</kbd><kbd>Space</kbd></span> is a launcher, and the key under your left thumb is Command no matter
+whose laptop you're holding. Underneath it's Hyprland on Wayland, and everything
+in it is a file in a git repository.</p>
+<p>There's a garden outside Apple's. This is the map of it.</p>
+<h2>What it runs on</h2>
+<p>Two machines, one configuration:</p>
+<ul>
+<li>A <strong>Dell XPS 14</strong>, where a key swap makes the thumb key Command.</li>
+<li>An <strong>M1 or M2 Mac</strong> under <strong>Asahi</strong>, where it already is.</li>
+</ul>
+<p>Anything that differs between them is handled in the setup, not by you.</p>
+<h2>How to read this</h2>
+<p>The manual is a reference, not a book. Press <code>/</code> from anywhere to search it —
+the same instinct the desktop rewards. If you're looking for a key, it's in
+<strong>Hotkeys</strong>, and that's the chapter most people never leave.</p>
+<h2>How it's put together</h2>
+<p>Every feature is a folder under <code>configuration/desktop/</code> with an <code>install.sh</code>
+inside it. Adding a feature means creating a folder; removing one means deleting
+it. There is no central list to keep in step, which is the entire trick.</p>
+<pre><code>configuration/desktop/waybar/
+├── install.sh          what to install and where to link it
+├── config/             files that get symlinked into ~/.config
+└── bin/                scripts that get symlinked into ~/.local/bin
+</code></pre>
+<p>The files in <code>config/</code> are <strong>symlinks</strong> into the repo, not copies. Edit the file
+in <code>~/.config</code>, and you have edited the repo. There is no step where you remember
+to copy your changes back, because there is nothing to copy.</p>
+  </main>
+</div>
+
+<div id="results" class="results" hidden>
+  <ul id="hits"></ul>
+  <p id="nothing" class="nothing" hidden></p>
+</div>
+
+<script src="search.js"></script>
+<script src="manual.js"></script>
+</body>
+</html>
