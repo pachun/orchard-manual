@@ -34,11 +34,6 @@ mini keeps a real iCloud Drive, and this machine reads it over a wire.
 Registers this machine's SSH key with GitHub, so `git push` works without a
 password prompt.
 
-## gcalcli
-
-Signs in to Google Calendar. This is what makes the calendar in the bar yours rather
-than a generic one.
-
 ## Messages
 
 `Cmd+I` opens BlueBubbles — iMessage on Linux, talking to the same Mac mini. It has

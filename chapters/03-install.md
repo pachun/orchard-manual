@@ -45,5 +45,8 @@ installing `iwd` would need the network you are trying to bring up.
 
 ## What `connect` does
 
-`~/code/orchard/connect` is the part that can't be automated away: signing into
-Google Calendar, GitHub, iCloud files, and Tailscale. It asks; you answer.
+`~/code/orchard/connect` is the part that can't be automated away: GitHub, iCloud
+files, and Tailscale. It asks; you answer.
+
+The calendar isn't in there. It's Google Calendar in a browser window (`Cmd+Shift+D`),
+so it signs in the way any website does.
