@@ -60,7 +60,8 @@ Whichever word you reach for, the key is there.
 | Keys | Action |
 |---|---|
 | `Cmd+Q` | Close the window |
-| `Cmd+Tab` | Next window |
+| `Cmd+Tab` | Next window on this desktop |
+| `` Cmd+` `` | Previous window — the same ring, backwards |
 | `Cmd+1`–`5` | Go to that desktop |
 | `Cmd+Ctrl+1`–`5` | Send the window to that desktop |
 | `Ctrl+Left` / `Ctrl+Right` | Previous / next desktop |
