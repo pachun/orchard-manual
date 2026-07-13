@@ -70,6 +70,20 @@ across the tailnet. It shows up in the Files sidebar because it's genuinely moun
 which also means that if the tailnet is down, it isn't there. `icloud` opens it in the
 terminal.
 
+## Your speakers and your headphones, too
+
+**AirPlay works.** HomePods and Apple TVs turn up in the sound output list
+(`Cmd+Shift+S`) alongside everything else — not in a separate AirPlay menu, because
+it isn't a separate question. Pick one and whatever is already playing moves to it.
+
+**AirPods work.** Pair them once over Bluetooth (`Cmd+Shift+B`) and they behave: they
+connect, they show up as an output, and the volume keys drive them.
+
+Between the two, the hardware you already own for your Mac keeps working. That is not
+a small thing, and it is the reason Spotify runs in a browser here — a browser's audio
+is an ordinary stream, and an ordinary stream can be sent to a HomePod. The terminal
+music client we used to run could not.
+
 ## What you can't have, and what to do instead
 
 **Apple Music and Apple TV will not play on Linux.** Not "aren't packaged" — *will not*.
@@ -80,9 +94,8 @@ So don't fight it. Own your media instead: [pachun/depot](https://github.com/pac
 sets up a home media server on a NAS, which plays anywhere, forever, and asks no
 permission.
 
-For music, Spotify runs as an app (`Cmd+M`) — and it runs in a browser deliberately,
-because a browser's audio is an ordinary stream and an ordinary stream can be sent to a
-**HomePod**. The terminal client we used to run couldn't. See **Sound and media**.
+For music, Spotify runs as an app (`Cmd+M`) — in a browser, for the reason above. See
+**Sound and media**.
 
 ## Things that are quietly the same
 
