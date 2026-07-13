@@ -1,17 +1,8 @@
 # Trackpad and keyboard
 
-## The trackpad has no click
+## Clicking
 
-On the XPS, pressing the trackpad does nothing. That is on purpose.
-
-The pad is a haptic sensor — no hinge, no switch, just a surface that measures
-force. A firm press anywhere fires a click, and the heel of a hand resting on it
-while you type presses hard enough to do it. The usual defence doesn't apply:
-disable-while-typing suppresses taps and motion, but deliberately never gates a
-*physical button*, on the assumption that a real button press is always intentional.
-On a hinged clickpad that holds. On a force sensor it doesn't.
-
-So the button is turned off. Every click is a tap:
+Press it or tap it — either one clicks.
 
 | | |
 |---|---|
@@ -19,14 +10,25 @@ So the button is turned off. Every click is a tap:
 | Two fingers | Right click |
 | Three fingers | Middle click |
 | Three-finger swipe | Change desktop |
+| `Cmd` + click | Add to a selection, or open a link in a new tab |
+
+The pad is a haptic sensor — no hinge, no switch, just a surface that measures
+force — so a press anywhere on it counts, and there is no dead zone at the top.
 
 ## Typing doesn't click any more
 
 Disable-while-typing ignores the pad while you type and for a moment after. It was
 silently dead for a long time: the key remapper takes an **exclusive grab** on the
-real keyboard, so the compositor was watching a device that could never deliver it
+real keyboard, so libinput was watching a device that could never deliver it
 another keystroke. It reported itself as enabled the whole time. It's now paired
-with the keyboard your keys actually come out of.
+with the keyboard your keys actually come out of, which is the fix that made a
+resting palm stop clicking mid-sentence.
+
+One honest limit: disable-while-typing suppresses *taps*, but deliberately never
+gates the *physical button*, on the assumption that a real press is always
+intentional. On a hinged clickpad that holds. On a force sensor it is a guess — so
+if a resting palm ever presses hard enough to click while you type, that is the
+gap, and it is a gap by design rather than a bug.
 
 ## Caps Lock is Ctrl
 
