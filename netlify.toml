@@ -1,0 +1,9 @@
+# Netlify builds the manual itself: it installs what requirements.txt asks for,
+# runs ./build, and serves what lands in site/. So a chapter is published by
+# pushing its markdown — site/ is generated, never committed, never forgotten.
+[build]
+  command = "python3 build"
+  publish = "site"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
