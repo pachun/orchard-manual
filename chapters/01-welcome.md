@@ -3,7 +3,7 @@
 Orchard is an Arch Linux desktop that behaves like a Mac.
 
 Not a theme that looks like one — a desktop where `Cmd+C` copies, `Cmd+Q` quits,
-`Cmd+Space` is a launcher, and the key under your left thumb is Command no matter
+`Cmd+Tab` walks the windows, and the key under your left thumb is Command no matter
 whose laptop you're holding. Underneath it's Hyprland on Wayland, and everything
 in it is a file in a git repository.
 

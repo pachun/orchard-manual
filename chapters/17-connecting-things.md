@@ -39,6 +39,11 @@ password prompt.
 `Cmd+I` opens BlueBubbles — iMessage on Linux, talking to the same Mac mini. It has
 to be signed in once, inside the app.
 
+**It is already running.** It starts at login and goes straight into hiding — the
+same place `Cmd+I` puts it when you dismiss it — so it is connected from the moment
+you sign in, and a text arrives as a notification without a window ever having
+appeared. `Cmd+I` brings it out, exactly as though you had hidden it yourself.
+
 Notifications from it land in the bar where the clock is, and clicking one opens the
 app. It won't open the *thread*: BlueBubbles doesn't put one in the notification, so
 there's nothing to open. See **Notifications**.

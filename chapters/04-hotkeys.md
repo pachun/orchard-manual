@@ -11,6 +11,13 @@ things up: `Cmd+letter` opens a thing you look at, `Cmd+Shift+letter` opens one 
 the bar's menus. The shifted half of the keyboard changes a setting; the unshifted
 half shows you an app.
 
+Six apps break that rule, and all for the same reason: **their letter was already
+taken by a Mac shortcut.** `Cmd+C` is copy, `Cmd+W` closes a tab, `Cmd+M` went to
+music because Spotify has the better claim on it. Those are rewritten at the input
+layer, before any application sees them, so a launcher bound to one would simply
+never fire. Weather, Maps, Photos, Calendar and the Calculator live on the shifted
+key because the unshifted one is unavailable, not because they are menus.
+
 ## Apps
 
 | Keys | Opens |
@@ -26,6 +33,7 @@ half shows you an app.
 | `Cmd+Shift+P` | Photos |
 | `Cmd+Shift+D` | Calendar |
 | `Cmd+Shift+C` | Calendar, again |
+| `Cmd+Shift+K` | Calculator |
 
 These focus the app if it's already running instead of opening a second copy.
 `Cmd+E` is the deliberate exception: it always gives you a new window, because
