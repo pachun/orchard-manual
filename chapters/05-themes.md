@@ -3,12 +3,17 @@
 Four themes, and a theme is not a colour scheme — it is every application on the
 desktop agreeing at once.
 
-| Theme | |
-|---|---|
-| **catppuccin-frappe** | dark, blue-grey |
-| **catppuccin-macchiato** | dark, deeper |
-| **everforest** | dark, green |
-| **rose-pine-dawn** | light |
+![catppuccin-frappe](img/theme-catppuccin-frappe.jpg)
+<p class="caption"><code>catppuccin-frappe</code> — dark, blue-grey</p>
+
+![catppuccin-macchiato](img/theme-catppuccin-macchiato.jpg)
+<p class="caption"><code>catppuccin-macchiato</code> — dark, and deeper</p>
+
+![everforest](img/theme-everforest.jpg)
+<p class="caption"><code>everforest</code> — dark, green</p>
+
+![rose-pine-dawn](img/theme-rose-pine-dawn.jpg)
+<p class="caption"><code>rose-pine-dawn</code> — the light one</p>
 
 Switch with `Cmd+,` → **Theme**, or from a terminal:
 

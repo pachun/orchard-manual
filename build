@@ -316,6 +316,28 @@ pre {
 }
 pre code { padding: 0; background: none; border: 0; font-size: 13.5px; }
 
+/* Screenshots. They carry a border because most of them are of a dark desktop
+   and would otherwise bleed into the dark page with no edge at all. */
+main img {
+  display: block;
+  width: 100%;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+/* A recording of the desktop is only honest in the theme it was recorded in.
+   There are two of each, and the page shows the one it is currently wearing —
+   so the manual and the thing it documents always agree. */
+[data-theme="everforest"]     img.light { display: none; }
+[data-theme="rose-pine-dawn"] img.dark  { display: none; }
+
+figcaption, .caption {
+  margin: -12px 0 26px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 15px; }
 th, td { text-align: left; padding: 9px 14px 9px 0; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -456,6 +478,7 @@ def main():
         + ";"
     )
     shutil.copytree(HERE / "assets" / "fonts", SITE / "fonts")
+    shutil.copytree(HERE / "assets" / "img", SITE / "img")
     shutil.copy(HERE / "assets" / "orchard.png", SITE / "orchard.png")
 
     print(f"  {len(chapters)} chapters -> {SITE}/")

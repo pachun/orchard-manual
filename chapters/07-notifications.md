@@ -4,13 +4,10 @@ Notifications don't get a toast. They take the clock's place at the top of the
 screen — the clock fades out, the message fades in, and after five seconds they
 swap back.
 
-```
-Mon Jul 13  4:12 PM
-        ↓
-BlueBubbles — Nicholas Pachulski — Hey bud
-        ↓
-Mon Jul 13  4:12 PM
-```
+![The clock fading out and a notification fading in, in the bar](img/notification-everforest.gif){.dark} ![The same, in the light theme](img/notification-rose-pine-dawn.gif){.light}
+
+<p class="caption">Recorded off the bar. Nothing moves — the clock and the message
+share the slot, and only their opacity changes.</p>
 
 ## Clicking one
 

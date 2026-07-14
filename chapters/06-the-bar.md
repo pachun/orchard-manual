@@ -4,6 +4,8 @@ One strip across the top. Workspaces on the left, the clock in the middle,
 everything else on the right, battery hard against the corner where your eye can
 find it without reading.
 
+![The bar](img/bar-everforest.png){.dark} ![The bar](img/bar-rose-pine-dawn.png){.light}
+
 Every icon in it is also a hotkey — click the wifi icon or press `Cmd+Shift+I`,
 they open the same menu. The bar is a set of shortcuts you can see.
 
