@@ -48,6 +48,23 @@ Notifications from it land in the bar where the clock is, and clicking one opens
 app. It won't open the *thread*: BlueBubbles doesn't put one in the notification, so
 there's nothing to open. See **Notifications**.
 
+### The server, on the Mac
+
+BlueBubbles here is only the Linux half; the other half is the BlueBubbles
+*server* on the always-on Mac mini, and it takes a few things by hand that these
+dotfiles can't reach from Linux:
+
+- **SIP has to be off.** The server's Private API injects into Messages, and
+  macOS won't permit that with System Integrity Protection enabled.
+- **Turn the Private API on** in the server's settings. Without it the bridge is
+  read-only; with it, sending images, marking chats read, and typing indicators
+  all work. (The Linux client's matching switches are set for you by orchard.)
+- **Turn FaceTime off.** The server can relay incoming FaceTime calls to this
+  client, and the feature is experimental in the worst way: when a call comes in,
+  the client freezes solid — Accept and Ignore do nothing, "generating link" spins
+  forever — and the only way out is to force-quit it (`Cmd+Shift+Q`) and reopen.
+  Leave it off. It's the `facetime_calling` switch in the server's settings.
+
 ## The VPN
 
 `Cmd+Shift+V`, or:
