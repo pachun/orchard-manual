@@ -28,7 +28,7 @@ step, which is the same trick orchard itself uses.
 keycaps. Write the chord in backticks and it comes out looking like the thing your
 hands do.
 
-**The manual wears orchard's themes.** Dark is everforest, light is rose-pine-dawn,
+**The manual wears orchard's themes.** Dark is catppuccin-frappe, light is rose-pine-dawn,
 and the palettes are the real ones from the theme folders. The toggle names the
 theme rather than drawing a sun, because those are themes you can actually be
 running. It follows the system preference until you pick one.

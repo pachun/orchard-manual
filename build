@@ -7,7 +7,7 @@ which is the whole point: a manual you can't read without infrastructure is a
 manual you won't read.
 
 The look is not chosen so much as inherited. The manual wears orchard's own
-themes: dark is everforest, light is rose-pine-dawn, and both palettes are
+themes: dark is catppuccin-frappe, light is rose-pine-dawn, and both palettes are
 lifted straight from the theme files in the repo next door. The toggle isn't a
 generic sun and moon — it names the theme you're in, because on the desktop
 those are real things you can switch to.
@@ -25,9 +25,9 @@ SITE = HERE / "site"
 
 # Straight out of ~/code/orchard/configuration/desktop/themes/config/orchard-themes/.
 THEMES = {
-    "everforest": {
-        "bg": "#272e33", "raised": "#2e383c", "line": "#3d484d",
-        "fg": "#d3c6aa", "muted": "#859289", "accent": "#a7c080", "quiet": "#83c092",
+    "catppuccin-frappe": {
+        "bg": "#303446", "raised": "#414559", "line": "#51576d",
+        "fg": "#c6d0f5", "muted": "#a5adce", "accent": "#8caaee", "quiet": "#81c8be",
     },
     "rose-pine-dawn": {
         "bg": "#faf4ed", "raised": "#fffaf3", "line": "#dfdad9",
@@ -95,7 +95,7 @@ def page(chapter, chapters):
 
 
 TEMPLATE = """<!doctype html>
-<html lang="en" data-theme="everforest">
+<html lang="en" data-theme="catppuccin-frappe">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} — the orchard manual</title>
@@ -329,8 +329,8 @@ main img {
 /* A recording of the desktop is only honest in the theme it was recorded in.
    There are two of each, and the page shows the one it is currently wearing —
    so the manual and the thing it documents always agree. */
-[data-theme="everforest"]     img.light { display: none; }
-[data-theme="rose-pine-dawn"] img.dark  { display: none; }
+[data-theme="catppuccin-frappe"] img.light { display: none; }
+[data-theme="rose-pine-dawn"]    img.dark  { display: none; }
 
 figcaption, .caption {
   margin: -12px 0 26px;
@@ -437,7 +437,7 @@ find.addEventListener("input", () => {
 
 // The toggle names the theme rather than drawing a sun, because these are real
 // themes you can actually be running on the desktop.
-const THEMES = ["everforest", "rose-pine-dawn"];
+const THEMES = ["catppuccin-frappe", "rose-pine-dawn"];
 const button = document.getElementById("theme");
 const root = document.documentElement;
 
@@ -453,7 +453,7 @@ button.addEventListener("click", () => {
 
 const remembered = localStorage.getItem("orchard-manual-theme");
 const prefersLight = matchMedia("(prefers-color-scheme: light)").matches;
-wear(remembered || (prefersLight ? "rose-pine-dawn" : "everforest"));
+wear(remembered || (prefersLight ? "rose-pine-dawn" : "catppuccin-frappe"));
 """
 
 
