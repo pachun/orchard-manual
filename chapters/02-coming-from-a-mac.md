@@ -25,8 +25,9 @@ app gets them — not just the ones that thought to implement them.
 | `Cmd+A` `Cmd+Z` `Cmd+S` `Cmd+F` | Select all, undo, save, find |
 | `Cmd+T` `Cmd+W` `Cmd+Shift+T` | New tab, close tab, reopen the one you just closed |
 | `Cmd+Shift+[` / `Cmd+Shift+]` | Previous / next tab |
-| `Cmd+Left` / `Cmd+Right` | Back / forward |
-| `Cmd+Option+I` | Web inspector |
+| `Cmd+R` | Reload the page, in Chrome |
+| `Cmd+Left` / `Cmd+Right` | Back / forward, in Chrome |
+| `Cmd+Option+I` | Developer tools, in Chrome |
 | `Cmd+Q` | Quit |
 | `Cmd+,` | Settings |
 | `Cmd+Ctrl+Space` | Emoji |
@@ -73,29 +74,30 @@ terminal.
 ## Your speakers and your headphones, too
 
 **AirPlay works.** HomePods and Apple TVs turn up in the sound output list
-(`Cmd+Shift+S`) alongside everything else — not in a separate AirPlay menu, because
+(`Cmd+Shift+A`) alongside everything else — not in a separate AirPlay menu, because
 it isn't a separate question. Pick one and whatever is already playing moves to it.
 
 **AirPods work.** Pair them once over Bluetooth (`Cmd+Shift+B`) and they behave: they
 connect, they show up as an output, and the volume keys drive them.
 
 Between the two, the hardware you already own for your Mac keeps working. That is not
-a small thing, and it is the reason Spotify runs in a browser here — a browser's audio
-is an ordinary stream, and an ordinary stream can be sent to a HomePod. The terminal
-music client we used to run could not.
+a small thing: any app's audio is an ordinary stream, and an ordinary stream can be
+sent to a HomePod.
 
 ## What you can't have, and what to do instead
 
-**Apple Music and Apple TV will not play on Linux.** Not "aren't packaged" — *will not*.
-They're DRM-locked in a way that has no Linux path, and no amount of configuration
-changes that.
+**The Apple Music and Apple TV apps don't run on Linux, and the web players are a
+compromise.** Apple Music streams at music.apple.com, throttled and stripped-down, and
+anything you stream you don't own — a subscription can drop a title, throttle it, or
+raise its price.
 
-So don't fight it. Own your media instead: [pachun/depot](https://github.com/pachun/depot)
-sets up a home media server on a NAS, which plays anywhere, forever, and asks no
-permission.
+So don't rent your media — own it. [pachun/depot](https://github.com/pachun/depot)
+turns a NAS into a home media server that plays anywhere, forever, and asks no
+permission. Mine's a UGREEN — a real up-front cost, paid once, and then it's yours. It's
+been running for my whole family, watched through an Apple TV app we're only now using,
+on TestFlight. Stand one up for your own house — [mine's live](https://pachulski.tv).
 
-For music, Spotify runs as an app (`Cmd+M`) — in a browser, for the reason above. See
-**Sound and media**.
+For music, Spotify runs as an app (`Cmd+Shift+S`). See **Sound and media**.
 
 ## Things that are quietly the same
 

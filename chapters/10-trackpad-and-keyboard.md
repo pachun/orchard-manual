@@ -15,14 +15,13 @@ Press it or tap it — either one clicks.
 The pad is a haptic sensor — no hinge, no switch, just a surface that measures
 force — so a press anywhere on it counts, and there is no dead zone at the top.
 
-## Typing doesn't click any more
+## Typing doesn't click
 
-Disable-while-typing ignores the pad while you type and for a moment after. It was
-silently dead for a long time: the key remapper takes an **exclusive grab** on the
-real keyboard, so libinput was watching a device that could never deliver it
-another keystroke. It reported itself as enabled the whole time. It's now paired
-with the keyboard your keys actually come out of, which is the fix that made a
-resting palm stop clicking mid-sentence.
+Disable-while-typing ignores the pad while you type and for a moment after, so a
+resting palm doesn't click mid-sentence. It has to be pointed at the right keyboard:
+the key remapper takes an **exclusive grab** on the physical one, so the setting
+watches the remapper's virtual keyboard — the device your keystrokes actually come out
+of — instead. Aimed at the physical keyboard, it would see nothing and do nothing.
 
 One honest limit: disable-while-typing suppresses *taps*, but deliberately never
 gates the *physical button*, on the assumption that a real press is always
@@ -37,12 +36,10 @@ including the Mac-style shortcut rewriting — sees a real Ctrl when you press i
 
 ## The keyboard backlight stays on
 
-It used to go dark sixty seconds after your last keystroke, which is exactly wrong
-for the one case where you need it: sitting in a dark room, not typing, hunting for
-the volume key.
-
-That was never software. The Dell firmware runs its own timer, and it ships set to
-one minute. It's now set to twelve hours — the longest this BIOS will accept.
-There is no "never"; `0` is rejected, and so is anything past `12h`.
+The Dell firmware runs its own backlight timer — never software — and it ships set to
+one minute, which is exactly wrong for the one case you need it: sitting in a dark
+room, not typing, hunting for the volume key. It's set to twelve hours here, the
+longest this BIOS will accept. There is no "never"; `0` is rejected, and so is anything
+past `12h`.
 
 It costs about 0.7 W, which is roughly one hour off an eleven-hour battery.

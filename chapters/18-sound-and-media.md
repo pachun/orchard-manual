@@ -2,7 +2,7 @@
 
 ## Choosing where sound goes
 
-`Cmd+Shift+S`, or click the speaker in the bar.
+`Cmd+Shift+A`, or click the speaker in the bar.
 
 The list shows what's actually available and nothing else — an output whose port
 reports itself as unplugged doesn't appear, so you can't send music to headphones
@@ -19,9 +19,8 @@ HomePods and Apple TVs show up in that same list, alongside everything else. The
 is no separate AirPlay menu, because it isn't a separate question — it's just
 another place sound can go.
 
-This is also why Spotify runs as a web app rather than a terminal client. A browser's
-audio is an ordinary stream, and an ordinary stream can be sent to a HomePod. The TUI
-we used to run couldn't.
+Spotify's audio can go to a HomePod for the same reason: it's an ordinary stream, and
+an ordinary stream can be sent anywhere sound goes.
 
 ## Bluetooth
 

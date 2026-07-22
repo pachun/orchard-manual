@@ -4,7 +4,7 @@ Every theme ships one, and every theme can have yours instead.
 
 ## Trying one on
 
-Right-click any image in the browser and choose **Set as Wallpaper**, or:
+Right-click any image and choose **Set as Wallpaper**, or:
 
 ```
 set-wallpaper ~/pictures/that-one.png

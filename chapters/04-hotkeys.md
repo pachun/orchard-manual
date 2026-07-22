@@ -11,12 +11,12 @@ things up: `Cmd+letter` opens a thing you look at, `Cmd+Shift+letter` opens one 
 the bar's menus. The shifted half of the keyboard changes a setting; the unshifted
 half shows you an app.
 
-Six apps break that rule, and all for the same reason: **their letter was already
-taken by a Mac shortcut.** `Cmd+C` is copy, `Cmd+W` closes a tab, `Cmd+M` went to
-music because Spotify has the better claim on it. Those are rewritten at the input
-layer, before any application sees them, so a launcher bound to one would simply
-never fire. Weather, Maps, Photos, Calendar and the Calculator live on the shifted
-key because the unshifted one is unavailable, not because they are menus.
+A handful of apps break that rule, mostly because **their letter is already a Mac
+shortcut.** `Cmd+C` is copy, `Cmd+W` closes a tab, `Cmd+S` is save — each rewritten
+at the input layer, before any application sees it, so a launcher bound to one would
+simply never fire. Spotify and Weather land on the shifted key for exactly that
+reason; Maps, Photos, Calendar and the Calculator are shifted too. None of them are
+menus.
 
 ## Apps
 
@@ -27,8 +27,8 @@ key because the unshifted one is unavailable, not because they are menus.
 | `Cmd+Shift+N` | Browser, private window |
 | `Cmd+E` | Files |
 | `Cmd+I` | Messages |
-| `Cmd+M` | Music |
 | `Cmd+Shift+M` | Maps |
+| `Cmd+Shift+S` | Music |
 | `Cmd+Shift+W` | Weather |
 | `Cmd+Shift+P` | Photos |
 | `Cmd+Shift+D` | Calendar |
@@ -47,7 +47,7 @@ Whichever word you reach for, the key is there.
 | Keys | Menu |
 |---|---|
 | `Cmd+Shift+I` | Wi-Fi |
-| `Cmd+Shift+S` | Sound output |
+| `Cmd+Shift+A` | Sound output |
 | `Cmd+Shift+B` | Bluetooth |
 | `Cmd+Shift+V` | VPN |
 | `Cmd+,` | System |
@@ -95,11 +95,21 @@ press the Mac chord, the app receives its Linux one.
 | `Cmd+F` | Find |
 | `Cmd+T` / `Cmd+W` | New tab / close tab |
 | `Cmd+Shift+T` | Reopen the closed tab |
-| `Cmd+Left` / `Cmd+Right` | Back / forward |
-| `Cmd+Option+I` | Developer tools |
+| `Cmd+Shift+[` / `Cmd+Shift+]` | Previous / next tab |
 
 The terminal is deliberately left out of the rewrite, so `Ctrl+C` there is still
 an interrupt. It implements `Cmd+C`, `Cmd+V`, `Cmd+T` and `Cmd+W` itself.
+
+## In the browser
+
+Three more ride the same rewrite, but their targets are browser actions — the browser
+here is Chrome.
+
+| Keys | Action |
+|---|---|
+| `Cmd+R` | Reload the page |
+| `Cmd+Left` / `Cmd+Right` | Back / forward |
+| `Cmd+Option+I` | Developer tools |
 
 ## The function row
 

@@ -69,6 +69,7 @@ x     gitspine
 c       clear
 e       exit
 vim     nvim
+open    a file or URL in its default app
 lanip   this machine's address on the LAN
 battery percentage (Asahi only — the Mac's battery reports differently)
 ```

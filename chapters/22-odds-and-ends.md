@@ -20,7 +20,7 @@ It works out what town you're in from your IP address, and it has to, because Ar
 chromium ships without Google API keys — so the browser's own geolocation is dead and
 cannot be revived. The bar's temperature comes from the same guess.
 
-## The screen is the wrong colour, and it's been fixed
+## The screen is calibrated
 
 The XPS's OLED panel ships with an uncalibrated, green-tinted white balance on Linux
 — Windows loads a Dell factory profile that doesn't exist here — and the tell is that
