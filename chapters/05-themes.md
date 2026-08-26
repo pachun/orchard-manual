@@ -15,11 +15,17 @@ desktop agreeing at once.
 ![rose-pine-dawn](img/theme-rose-pine-dawn.jpg)
 <p class="caption"><code>rose-pine-dawn</code> — the light one</p>
 
-And four more, ported from [Omarchy](https://omarchy.org)'s shortlist:
-`ristretto` (warm brown, Monokai Pro's coffee filter), `tokyo-night` (the
-classic blue-violet night), `osaka-jade` (deep green on near-black), and
-`hackerman` (neon green on ink, for when you want the terminal to look like a
-terminal).
+![ristretto](img/theme-ristretto.jpg)
+<p class="caption"><code>ristretto</code> — dark, warm brown; Monokai Pro's coffee filter</p>
+
+![tokyo-night](img/theme-tokyo-night.jpg)
+<p class="caption"><code>tokyo-night</code> — dark, blue-violet</p>
+
+![hackerman](img/theme-hackerman.jpg)
+<p class="caption"><code>hackerman</code> — neon green on ink, for when a terminal should look like one</p>
+
+And `osaka-jade` — deep green on near-black. These four are ported from
+[Omarchy](https://omarchy.org)'s shortlist.
 
 Switch with `Cmd+,` → **Theme**, or from a terminal:
 
