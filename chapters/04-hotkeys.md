@@ -34,6 +34,7 @@ menus.
 | `Cmd+Shift+D` | Calendar |
 | `Cmd+Shift+C` | Calendar, again |
 | `Cmd+Shift+K` | Calculator |
+| `Cmd+Shift+U` | Claude usage panel |
 
 These focus the app if it's already running instead of opening a second copy.
 `Cmd+E` is the deliberate exception: it always gives you a new window, because
@@ -41,6 +42,10 @@ browsing files is something you do several of at once.
 
 The calendar answers to two chords on purpose — `D` for date, `C` for calendar.
 Whichever word you reach for, the key is there.
+
+In Files, `Space` on anything previews it — a picture, a PDF, a text file, a
+video — and the arrow keys walk through the rest of the folder while it's up.
+`Space` again puts it away. Quick Look, in other words.
 
 ## Menus
 

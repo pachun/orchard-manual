@@ -1,6 +1,6 @@
 # Themes
 
-Four themes, and a theme is not a colour scheme — it is every application on the
+Eight themes, and a theme is not a colour scheme — it is every application on the
 desktop agreeing at once.
 
 ![catppuccin-frappe](img/theme-catppuccin-frappe.jpg)
@@ -14,6 +14,12 @@ desktop agreeing at once.
 
 ![rose-pine-dawn](img/theme-rose-pine-dawn.jpg)
 <p class="caption"><code>rose-pine-dawn</code> — the light one</p>
+
+And four more, ported from [Omarchy](https://omarchy.org)'s shortlist:
+`ristretto` (warm brown, Monokai Pro's coffee filter), `tokyo-night` (the
+classic blue-violet night), `osaka-jade` (deep green on near-black), and
+`hackerman` (neon green on ink, for when you want the terminal to look like a
+terminal).
 
 Switch with `Cmd+,` → **Theme**, or from a terminal:
 
@@ -42,13 +48,19 @@ configuration/desktop/themes/config/orchard-themes/everforest/
 ├── nvim.lua         the editor
 ├── chromium.json    the browser
 ├── fuzzel.ini       the menus
+├── tmux.conf        the multiplexer
+├── gtk-theme-name   the GTK apps
 └── wallpaper.png
 ```
 
 Each app's real config points at `~/.config/orchard-themes/active/<app>`, and
 `active` is a symlink. Switching a theme repoints one symlink and then tells each
-app to re-read its config. Nothing is generated, nothing is templated, and adding
-a new app to the theme system means dropping one more partial into each folder.
+app to re-read its config. Nothing is templated, and adding a new app to the
+theme system means dropping one more partial into each folder.
+
+The one exception is anything drawn by hand rather than by an app — the
+volume square, the Claude usage panel. Those read the `palette` file and render
+their own colours from it on every switch, so a new theme gets them for free.
 
 ## The browser is the odd one
 

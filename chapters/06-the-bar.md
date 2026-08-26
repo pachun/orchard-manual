@@ -1,8 +1,12 @@
 # The bar
 
-One strip across the top. Workspaces on the left, the clock in the middle,
-everything else on the right, battery hard against the corner where your eye can
-find it without reading.
+One strip across the top. Workspaces on the left, the day and time in the middle
+with the weather beside it, everything else on the right, battery hard against the
+corner where your eye can find it without reading.
+
+The clock says `Wednesday 2:29` and nothing more. You know the date, and you know
+whether it's morning; a bar that repeats what you know is a bar you stop reading.
+The full date lives in its tooltip, and clicking it opens the calendar.
 
 ![The bar](img/bar-everforest.png){.dark} ![The bar](img/bar-rose-pine-dawn.png){.light}
 
@@ -20,6 +24,17 @@ beside the notch on the Mac. Same bar, two arrangements, no runtime check.
 There is no toast in the corner. When a notification arrives, the clock fades out
 and the message fades in where the clock was, sits for five seconds, and fades
 back. Click it while it's there and it opens whatever sent it.
+
+## How much Claude you've used
+
+The robot, just left of the battery. Click it — or `Cmd+Shift+U` — and a panel
+drops down under the bar with every limit Anthropic keeps for the account Claude
+Code is signed in to: the five-hour session, the week across all models, the
+week for the current model, each with a bar and when it resets. The same numbers
+as claude.ai's Usage page, without opening a browser. Click again to close it.
+
+It reads the login Claude Code already has; nothing to sign in to. If Claude Code
+is signed out, the robot dims and says so.
 
 ## Do not disturb
 
