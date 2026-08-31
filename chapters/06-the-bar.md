@@ -21,9 +21,10 @@ beside the notch on the Mac. Same bar, two arrangements, no runtime check.
 
 ## The clock is also where notifications appear
 
-There is no toast in the corner. When a notification arrives, the clock fades out
-and the message fades in where the clock was, sits for five seconds, and fades
-back. Click it while it's there and it opens whatever sent it.
+There is no toast in the corner. When a notification arrives, the clock and the
+weather glyph beside it fade out and the message fades in where they were, sits
+for five seconds, and fades back. Click it while it's there and it opens whatever
+sent it.
 
 ## How much Claude you've used
 

@@ -14,8 +14,8 @@ and the screenshot is still in there.
 
 ## The weather
 
-`Cmd+Shift+W`, or click the weather glyph beside the clock. The temperature is in
-its tooltip.
+`Cmd+Shift+W`, or click the weather glyph beside the clock. Hover it for the
+temperature.
 
 It works out what town you're in from your IP address, and it has to, because Arch's
 chromium ships without Google API keys — so the browser's own geolocation is dead and
