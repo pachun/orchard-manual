@@ -25,8 +25,19 @@ one). The whole device, not a partition: `sdX`, never `sdX1`.
 
 ## On a Dell XPS 14
 
-Boot the BIOS with `F2`, turn off secure boot, set SATA Operation to AHCI, and
-put the USB drive first in the boot order.
+1. With the laptop off, plug the stick in.
+2. Press the power button, then immediately tap `F2` repeatedly until BIOS
+   setup opens.
+3. Under **Storage → SATA/NVMe Operation**, pick **AHCI/NVMe**. The default,
+   RAID On, hides the drive from the installer.
+4. Under **Boot Configuration → Secure Boot**, switch **Enable Secure Boot**
+   off.
+5. Click **Apply Changes**, then **Exit**. The laptop restarts.
+6. As it comes back up, tap `F12` repeatedly. Pick the USB stick from the
+   one-time boot menu. (One-time means the boot order stays as it was; there
+   is nothing to undo later.)
+
+The Arch installer boots to a root shell. From there:
 
 ```
 iwctl --passphrase "PASS" station wlan0 connect "SSID"
@@ -35,7 +46,8 @@ git clone https://github.com/pachun/orchard /tmp/orchard
 /tmp/orchard/install-arch/dell-xps-14
 ```
 
-It reboots itself. Sign in, then:
+It asks for a hostname, username, and password, wipes the drive, installs,
+and reboots itself. Pull the stick when it says to. Sign in, then:
 
 ```
 nmcli device wifi connect "SSID" password "PASS"
@@ -44,14 +56,41 @@ cd ~/code/orchard
 ./connect
 ```
 
-## On a Framework 13
+## On a Framework Laptop 13
 
-Same steps, same script — `install-arch/dell-xps-14` is generic x86 UEFI
-despite the name. It detects Intel vs AMD for microcode itself, and
-`./configure` sorts out the hardware differences (graphics drivers, power
-daemons, the Dell-only extras) on its own. The only difference at the BIOS:
-there is no SATA Operation setting to change. `F2`, secure boot off, USB
-first, go.
+1. With the laptop off, plug the stick in.
+2. Press the power button, then immediately tap `F2` repeatedly until BIOS
+   setup opens. (If it boots straight through, Fn Lock is on — use `Fn+F2`,
+   or toggle Fn Lock off with `Fn+Esc` first.)
+3. Under **Security → Secure Boot**, set **Enforce Secure Boot** to
+   **Disabled**. There is no storage-mode setting to change; the drive is
+   visible as it is.
+4. Save and exit. The laptop restarts.
+5. As it comes back up, tap `F12` repeatedly (`Fn+F12` under Fn Lock). Pick
+   the USB stick from the one-time boot menu.
+
+The Arch installer boots to a root shell. The install script is the XPS one —
+it's plain x86 UEFI with nothing Dell-specific in it, and it detects Intel vs
+AMD for microcode on its own. `./configure` afterward sorts out the rest of
+the hardware differences (graphics drivers, power daemons, skipping the
+Dell-only extras).
+
+```
+iwctl --passphrase "PASS" station wlan0 connect "SSID"
+pacman -Sy --noconfirm git
+git clone https://github.com/pachun/orchard /tmp/orchard
+/tmp/orchard/install-arch/dell-xps-14
+```
+
+It asks for a hostname, username, and password, wipes the drive, installs,
+and reboots itself. Pull the stick when it says to. Sign in, then:
+
+```
+nmcli device wifi connect "SSID" password "PASS"
+cd ~/code/orchard
+./configure
+./connect
+```
 
 ## On an M1 or M2 Mac
 
@@ -59,7 +98,7 @@ first, go.
 curl https://asahi-alarm.org/installer-bootstrap.sh | sh
 ```
 
-Reboot into Arch, then the same steps: connect, clone, install.
+Reboot into Arch, then:
 
 ```
 nmcli device wifi connect "SSID" password "PASS"
@@ -68,8 +107,13 @@ git clone https://github.com/pachun/orchard /tmp/orchard
 /tmp/orchard/install-arch/asahi
 ```
 
-Then sign in and run `./configure` and `./connect` from `~/code/orchard`, as
-above.
+Sign in, then:
+
+```
+cd ~/code/orchard
+./configure
+./connect
+```
 
 ## Why the wifi command changes
 
