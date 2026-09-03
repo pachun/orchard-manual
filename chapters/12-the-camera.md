@@ -13,6 +13,13 @@ userspace relay running before anything can open it. With the relay stopped, the
 sensor is genuinely powered down — the LED is off because the camera is off, not
 because software is politely declining to look.
 
+## On the Framework, there is no switch to flip
+
+The Framework's camera is an ordinary USB webcam. It needs no relay, so there is
+no `camera` command there — apps see it the moment they look. Privacy is the
+physical switch in the bezel above the screen, which cuts the camera's power
+outright; the one beside it does the same for the microphone.
+
 ## Turn it on before the meeting, not during
 
 Browsers and meeting apps enumerate cameras when they start. Start the call first

@@ -11,9 +11,10 @@ There's a garden outside Apple's. This is the map of it.
 
 ## What it runs on
 
-Two machines, one configuration:
+Three machines, one configuration:
 
 - A **Dell XPS 14**, where a key swap makes the thumb key Command.
+- A **Framework Laptop 13**, where the same swap does the same job.
 - An **M1 or M2 Mac** under **Asahi**, where it already is.
 
 Anything that differs between them is handled in the setup, not by you.

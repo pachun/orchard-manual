@@ -13,6 +13,14 @@ Picking an output does the thing you meant: it becomes the default *and* everyth
 already playing moves to it. Choosing a speaker while music plays should move the
 music.
 
+## The Framework's microphone
+
+The Framework 13's internal mic is wired to its audio codec, but the sound card
+profile Linux picks on its own routes the mic slot through a second capture
+controller that isn't connected to anything on this board — it records a flat,
+silent constant. The setup pins the profile with the working route and hides the
+dead one, so the only mic on offer is the one that hears you.
+
 ## AirPlay
 
 HomePods and Apple TVs show up in that same list, alongside everything else. There

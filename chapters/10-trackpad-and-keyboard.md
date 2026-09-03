@@ -43,3 +43,6 @@ longest this BIOS will accept. There is no "never"; `0` is rejected, and so is a
 past `12h`.
 
 It costs about 0.7 W, which is roughly one hour off an eleven-hour battery.
+
+The Framework has no timer to fight. Its backlight stays at whatever `Fn+Space`
+last set, so there is nothing for the setup to do there.

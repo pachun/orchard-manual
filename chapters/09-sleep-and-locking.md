@@ -8,9 +8,25 @@
 
 `Cmd+Delete` locks it now. So does `Cmd+,` → **Lock**.
 
+## Unlocking with a finger
+
+On the Framework, the fingerprint reader is the power button. Rest an enrolled
+finger on it at the lock screen and it unlocks; the line under the password field
+says what the reader is doing. The password still works, always.
+
+Enrolling is the one step that can't be automated — it's ten taps of your finger:
+
+```
+cd ~/code/orchard
+./connect fingerprint
+```
+
+Machines without a reader never see any of this. The lock screen is the same one,
+minus the line.
+
 ## Why there's no screensaver
 
-Because the screen is OLED, and a screensaver is the wrong tool for it.
+Because the XPS's screen is OLED, and a screensaver is the wrong tool for it.
 
 Screensavers exist because CRT phosphor burned where the beam sat still, and the
 fix was to keep the image moving. OLED doesn't work like that — every lit pixel
@@ -21,6 +37,9 @@ the only real protection, and that's what the ten-and-a-half-minute mark is for.
 The thing genuinely at risk is the bar: static, same pixels, every waking hour. The
 dark themes are doing real work there, since a dark pixel on OLED is largely an off
 pixel.
+
+The Framework's panel is an LCD and has none of this to fear. It keeps the same
+timings anyway — a lit panel nobody is looking at is battery, whatever it's made of.
 
 ## Why the lock lands before the panel
 

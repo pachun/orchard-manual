@@ -5,12 +5,12 @@ would.
 
 ## The key under your thumb is Command
 
-Whatever the keycap says. On the MacBook it says Cmd. On the XPS it says **Alt** —
+Whatever the keycap says. On the MacBook it says Cmd. On the XPS and the Framework it says **Alt** —
 and it is Command anyway, because the two are swapped before anything else on the
 system sees the key.
 
 That one decision is what makes everything below possible: your left thumb lands in
-the same place on both machines, and every shortcut is the shortcut you already know.
+the same place on every machine, and every shortcut is the shortcut you already know.
 
 **Caps Lock is Ctrl**, which you probably did on the Mac too.
 

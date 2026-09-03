@@ -16,8 +16,8 @@ they open the same menu. The bar is a set of shortcuts you can see.
 ## On the Mac, the clock moves
 
 The MacBook has a notch, and the middle of the screen is behind it. So the layout
-is chosen per machine at install time: the clock sits centred on the XPS, and
-beside the notch on the Mac. Same bar, two arrangements, no runtime check.
+is chosen per machine at install time: the clock sits centred on the XPS and the
+Framework, and beside the notch on the Mac. Same bar, two arrangements, no runtime check.
 
 ## The clock is also where notifications appear
 

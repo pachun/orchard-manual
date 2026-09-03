@@ -57,12 +57,16 @@ symlink that points into its source and no longer resolves. Hand it a relative p
 and it will create the links, find them dangling, and delete them again — quietly,
 and with a clean exit code.
 
-## Two machines, one configuration
+## Three machines, one configuration
 
-Anything that differs between the XPS and the Asahi Mac is decided inside the
-component, not by you. `tools/machine.sh` answers "is this an Apple?" and the
-component acts on it — the bar picks a layout, the key remapper decides whether to
-swap Alt and Super, the trackpad quirk scopes itself by DMI.
+Anything that differs between the XPS, the Framework, and the Asahi Mac is decided
+inside the component, not by you. `tools/machine.sh` answers "is this an Apple? a
+Dell? a Framework? an AMD chip?" and the component acts on the axis it actually
+varies on — the bar picks a layout by notch, the key remapper swaps Alt and Super
+on anything that isn't an Apple keyboard, the graphics drivers are chosen by CPU
+vendor, and the camera relay and the screen calibration are Dell-only. Anything a
+laptop either has or doesn't, like a fingerprint reader, is gated on the device
+being present rather than on whose name is on the lid.
 
 There is no branch, no fork, and no per-machine config file. There is one repo, and
 it knows where it woke up.

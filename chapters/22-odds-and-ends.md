@@ -30,7 +30,8 @@ dark blues come out green.
 A per-channel gamma ramp corrects it at login, hand-matched to a MacBook Air. `wb` is
 the tool it was found with, if you ever want to tune it again.
 
-None of this runs on the Mac, whose panel was calibrated by the people who made it.
+None of this runs on the Mac, whose panel was calibrated by the people who made it,
+nor on the Framework, whose LCD doesn't have the tint.
 
 ## Colour picker
 
@@ -43,5 +44,5 @@ None of this runs on the Mac, whose panel was calibrated by the people who made 
 ## The Mac's trackpad
 
 The Asahi machine runs a palm-rejection daemon of its own, because Apple's trackpad
-reports contact *width* and the XPS's doesn't. Width is a much better signal than
+reports contact *width* and the XPS's and the Framework's don't. Width is a much better signal than
 pressure for telling a palm from a finger, so where the hardware offers it, we use it.

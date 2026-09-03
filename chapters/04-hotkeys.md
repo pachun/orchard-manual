@@ -1,8 +1,8 @@
 # Hotkeys
 
 **Cmd is the key immediately left of the spacebar.** On the MacBook that is Cmd.
-On the XPS that key is physically labelled **Alt** — a swap at the input layer
-makes it Command, so both machines are driven from the same thumb.
+On the XPS and the Framework that key is physically labelled **Alt** — a swap at
+the input layer makes it Command, so every machine is driven from the same thumb.
 
 **Caps Lock is Ctrl.**
 
